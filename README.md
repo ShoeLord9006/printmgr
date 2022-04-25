@@ -12,17 +12,17 @@ and interfacing with it over the Arduino's main builtin 5V TTL serial interface.
 
 | Arduino   | Parallel  | Name   |
 | ---       | ---       | ---    |
-| 2         | 2         | Strobe |
-| 3         | 3         | Data 0 |
-| 4         | 4         | Data 1 |
-| 5         | 5         | Data 2 |
-| 6         | 6         | Data 3 |
-| 7         | 7         | Data 4 |
-| 8         | 8         | Data 5 |
-| 9         | 9         | Data 6 |
-| 10        | 10        | Data 7 |
-| 11        | 11        | Ack    |
-| 12        | 12        | Busy   |
+| 4         | 2         | Strobe |
+| 5         | 3         | Data 0 |
+| 6         | 4         | Data 1 |
+| 7         | 5         | Data 2 |
+| 8         | 6         | Data 3 |
+| 9         | 7         | Data 4 |
+| 10        | 8         | Data 5 |
+| 11        | 9         | Data 6 |
+| 12        | 10        | Data 7 |
+| 13        | 11        | Ack    |
+| 14        | 12        | Busy   |
 | GND       | GND       | Ground |
 
 ### PS/2 Keyboard
@@ -34,6 +34,7 @@ and interfacing with it over the Arduino's main builtin 5V TTL serial interface.
 | 5V        | 4     | VCC    |
 | GND       | 3     | Ground |
 
-Note: These pinouts are only valid for an Arduino Mega 2560 where there is an
-interrupt on pin 19. The DEBUG flag also only works on this Arduino as it has
+Notes: Pin 14 on an Arduino Mega is labelled D14, However on boards where there
+are only 13 digital pins, it is labelled A0.
+The DEBUG flag also only works on this Arduino as it has
 extra serial interfaces

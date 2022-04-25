@@ -14,20 +14,20 @@
 
 
 // parallel port pin# = arduino pin#
-const int pStrobe = 2;
-const int pData0 = 3;
-const int pData1 = 4;
-const int pData2 = 5;
-const int pData3 = 6;
-const int pData4 = 7;
-const int pData5 = 8;
-const int pData6 = 9;
-const int pData7 = 10;
-const int pAck = 11;
-const int pBusy = 12;
+const int pStrobe = 4;
+const int pData0 = 5;
+const int pData1 = 6;
+const int pData2 = 7;
+const int pData3 = 8;
+const int pData4 = 9;
+const int pData5 = 10;
+const int pData6 = 11;
+const int pData7 = 12;
+const int pAck = 13;
+const int pBusy = 14; //A0 on Arduino Nano since there is no D13 pin
 // keyboard pins
-const int kData = 18;
-const int kClk = 19;
+const int kData = 3;
+const int kClk = 2;
 
 //Microseconds to strobe nStrobe for
 const int strobeWait = 2;
@@ -88,7 +88,6 @@ void loop() {
     if(keyboard.available()) {
         ps2Handler();
     }
-    //Add timer for pushing then pulling paper like in the lpsh.go thing
 }
 
 void serialHandler() {
