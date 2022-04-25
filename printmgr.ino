@@ -1,8 +1,7 @@
 #include <PS2Keyboard.h>
 
-#define DEBUG
-
-#ifdef DEBUG
+#define DEBUG 1
+#if DEBUG == 1
     #define DEBUG_BEGIN(x) Serial2.begin(x)
     #define DEBUG_PRINT(x) Serial2.print(x)
     #define DEBUG_PRINTLN(x) Serial2.println(x)
