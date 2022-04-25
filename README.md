@@ -28,6 +28,7 @@ and interfacing with it over the Arduino's main builtin 5V TTL serial interface.
 ### PS/2 Keyboard
 
 | Arduino   | PS/2  | Name   |
+| ---       | ---   | ---    |
 | 18        | 1     | Data   |
 | 19        | 5     | Clk    |
 | 5V        | 4     | VCC    |
