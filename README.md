@@ -6,6 +6,45 @@ This program runs on an atmega (Arduino Mega 2560 in this case) to create a sort
 of dummy terminal/teletype using a ps2 keyboard and parallel dot matrix printer
 and interfacing with it over the Arduino's main builtin 5V TTL serial interface.
 
+## Building/Uploading
+
+### Examples
+
+Compile and Upload a sketch
+```
+make all
+```
+Compile, Upload, and open serial monitor using `minicom`
+```
+make all monitor
+```
+Clean build files
+```
+make clean
+```
+Install all required libraries from `requirements.txt` using `arduino-cli lib install`
+```
+make requirements
+```
+
+### Configuring the Makefile
+
+ - `FQBN` must be set to the Fully Qualified Board Name e.g.
+    - Arduino Mega `arduino:avr:mega`
+    - Arduino Nano `arduino:avr:nano`
+    - Arduino Nano (old bootloader) `arduino:avr:nano:cpu=atmega328old`
+ - `SERIAL_DEV` is optional and leaving blank will attempt to autodetect
+ - `V` Enables/Disables verbose output for `arduino-cli`
+
+### Valid Make targets
+
+ - all
+ - compile
+ - upload
+ - clean
+ - monitor
+ - requirements
+
 ## Pinouts
 
 ### Parallel connector
