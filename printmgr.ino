@@ -130,31 +130,18 @@ void printByte(byte inByte) {
     // wait for busy to go low
     }
 
-    int b0 = bitRead(inByte, 0);
-    int b1 = bitRead(inByte, 1);
-    int b2 = bitRead(inByte, 2);
-    int b3 = bitRead(inByte, 3);
-    int b4 = bitRead(inByte, 4);
-    int b5 = bitRead(inByte, 5);
-    int b6 = bitRead(inByte, 6);
-    int b7 = bitRead(inByte, 7);
+    digitalWrite(pData0, inByte & 0x01);        // set data bit pins
+    digitalWrite(pData1, inByte & 0x02);        // set data bit pins
+    digitalWrite(pData2, inByte & 0x04);        // set data bit pins
+    digitalWrite(pData3, inByte & 0x08);        // set data bit pins
+    digitalWrite(pData4, inByte & 0x10);        // set data bit pins
+    digitalWrite(pData5, inByte & 0x20);        // set data bit pins
+    digitalWrite(pData6, inByte & 0x40);        // set data bit pins
+    digitalWrite(pData7, inByte & 0x80);        // set data bit pins
 
-    digitalWrite(pData0, b0);        // set data bit pins
-    digitalWrite(pData1, b1);
-    digitalWrite(pData2, b2);
-    digitalWrite(pData3, b3);
-    digitalWrite(pData4, b4);
-    digitalWrite(pData5, b5);
-    digitalWrite(pData6, b6);
-    digitalWrite(pData7, b7);
-
-    digitalWrite(pStrobe, LOW);       // strobe nStrobe to input data bits
+    digitalWrite(pStrobe, LOW);       // strobe pStrobe to input data bits
     delayMicroseconds(strobeWait);
     digitalWrite(pStrobe, HIGH);
-
-    while(digitalRead(pBusy) == HIGH) {
-    // wait for busy line to go low
-    }
     timerEnable(1);
 }
 
