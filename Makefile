@@ -2,11 +2,11 @@
 
 # Fully Qualified Board Name
 # ----- Arduino Mega -----
-FQBN        ?= arduino:avr:mega
+#FQBN        ?= arduino:avr:mega
 # ----- Arduino Nano -----
 #FQBN        ?= arduino:avr:nano
 # ----- Arduino Nano (Old Bootloader) -----
-#FQBN        ?= arduino:avr:nano:cpu=atmega328old
+FQBN        ?= arduino:avr:nano:cpu=atmega328old
 
 # Serial Device (Leave blank for autodetect)
 #SERIAL_DEV        ?= /dev/ttyUSB0
