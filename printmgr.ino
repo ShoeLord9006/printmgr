@@ -65,9 +65,8 @@ void setup() {
 
     delay(1000);
 
-    timerSetup();
-
     resetPrinter();
+    timerSetup();
 
     DEBUG_PRINTLN("Startup complete");
 }
