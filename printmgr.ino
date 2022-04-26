@@ -1,6 +1,6 @@
 #include <PS2Keyboard.h>
 
-#define DEBUG 1
+#define DEBUG 0 //Will fail to compile if set to 1 and compiling for a board that does not have Serial2
 #if DEBUG == 1
     #define DEBUG_BEGIN(x) Serial2.begin(x)
     #define DEBUG_PRINT(x) Serial2.print(x)
@@ -32,13 +32,14 @@ const int kClk = 2;
 //Microseconds to strobe nStrobe for
 const int strobeWait = 2;
 
-const int lineLen = 80;
-int linePos = 1;
+//const int lineLen = 80; //Unnessecary until linewrapping is implemented
+//int linePos = 0;
 const byte initMessage[] = "Initializing...\r\n";
 
 bool isEscape = 0;
 bool isPeeked = 0;
 unsigned int time = 0;
+bool timerInhibit = 0;
 const unsigned int peekMaxDelay = 6;
 
 PS2Keyboard keyboard;
@@ -69,15 +70,15 @@ void setup() {
     resetPrinter();
     printMessage(initMessage);
 
-    pinMode(LED_BUILTIN,OUTPUT);
-
     DEBUG_PRINTLN("Startup complete");
 }
 
 ISR(TIMER1_COMPA_vect) {
-    time++;
-    if(time>=peekMaxDelay) {
-        epsonPeek();
+    if(!timerInhibit) {
+        time++;
+        if(time>=peekMaxDelay) {
+            epsonPeek();
+        }
     }
 }
 
@@ -97,13 +98,6 @@ void serialHandler() {
             isEscape = 1;
         } else if(isEscape) {
             if(isalpha(c)) {isEscape=0;}
-            /*if(escapeType=='[') {if(((int)c>=0x41)&&((int)c<=0x7a)) {isEscape=0;}}
-            else {
-                if(c=='[') {escapeType=c;} //CSI
-                //else if(c=='P') {escapeType=c;} //DCS
-                //else if(c==']') {escapeType=c;} //OSC
-                else {while(Serial.available()==0) {Serial.read();isEscape=0;}}
-            }*/
         } else {
             epsonUnPeek();
             printByte(c);
@@ -131,9 +125,9 @@ void ps2Handler() {
 }
 
 void printByte(byte inByte) {
+    timerEnable(0);
     while(digitalRead(pBusy) == HIGH) {
     // wait for busy to go low
-        time = 0;
     }
 
     int b0 = bitRead(inByte, 0);
@@ -160,8 +154,8 @@ void printByte(byte inByte) {
 
     while(digitalRead(pBusy) == HIGH) {
     // wait for busy line to go low
-        time = 0;
     }
+    timerEnable(1);
 }
 
 void printMessage(byte message[]) {
@@ -186,12 +180,24 @@ void timerSetup() {
     sei();
 }
 
+void timerEnable(bool enable) { // Wrapper function to set timerInhibit to x and time to 0
+    if(enable==1) {
+        timerInhibit = 0;
+    } else {
+        timerInhibit = 1;
+    }
+    time = 0;
+}
+
+/* Functions to move the page up if nothing has been printed for x amount of time
+to allow the user to read the output without the print head covering the page
+Then moving the page back down when text needs to be printed again
+Note: Uses Espon LQ1070/570 Control Codes*/
 void epsonPeek() {
     if(isPeeked==0) {
         isPeeked = 1;
         printMessage("\x1BJ\xD8\x1BJ\xD8\x1BJ\x6C");
     }
-    digitalWrite(LED_BUILTIN,isPeeked);
 }
 void epsonUnPeek() {
     time = 0;
@@ -199,6 +205,5 @@ void epsonUnPeek() {
         isPeeked = 0;
         printMessage("\x1Bj\xD8\x1Bj\xD8\x1Bj\x6C");
     }
-    digitalWrite(LED_BUILTIN,isPeeked);
 }
 
