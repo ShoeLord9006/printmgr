@@ -38,3 +38,9 @@ Notes: Pin 14 on an Arduino Mega is labelled D14, However on boards where there
 are only 13 digital pins, it is labelled A0.
 The DEBUG flag also only works on this Arduino as it has
 extra serial interfaces
+
+## Requirements
+
+ - PS2Keyboard (Arduino Library)
+ - arduino or arduino-cli
+ - gnumake
