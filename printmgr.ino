@@ -68,7 +68,6 @@ void setup() {
     timerSetup();
 
     resetPrinter();
-    printMessage(initMessage);
 
     DEBUG_PRINTLN("Startup complete");
 }
@@ -112,11 +111,12 @@ void ps2Handler() {
     if (c==0x7f) { //Delete to backspace
         Serial.print((char)0x08);
         DEBUG_PRINT((char)0x08);
-    } else if(c==0x0d) { //Append line feed after a carriage return
+    //Disabled code due to pressing enter twice and keyboard input not actually requiring a linefeed to be appended
+    /*} else if(c==0x0d) { //Append line feed after a carriage return
         Serial.print((char)0x0d);
         Serial.print((char)0x0a);
         DEBUG_PRINT((char)0x0d);
-        DEBUG_PRINT((char)0x0a);
+        DEBUG_PRINT((char)0x0a);*/
     } else { //Print everything else raw
         Serial.print(c);
         DEBUG_PRINT(c);
@@ -152,11 +152,13 @@ void printMessage(byte message[]) {
 }
 
 void resetPrinter() {
-    printByte(27); // reset printer
-    printByte('E');
+    printMessage("\x1B@"); // Initialize printer
+    printMessage("\x1Bx0"); // Set printing quality to DRAFT
+    printMessage("\x1B!\x04"); // Enable condensed printing
 }
 
 void timerSetup() {
+    timerEnable(0);
     noInterrupts();
     TCCR1A = 0;
     TCCR1B = 0;
