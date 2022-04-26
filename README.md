@@ -51,25 +51,25 @@ make requirements
 
 | Arduino   | Parallel  | Name   |
 | ---       | ---       | ---    |
-| 4         | 2         | Strobe |
-| 5         | 3         | Data 0 |
-| 6         | 4         | Data 1 |
-| 7         | 5         | Data 2 |
-| 8         | 6         | Data 3 |
-| 9         | 7         | Data 4 |
-| 10        | 8         | Data 5 |
-| 11        | 9         | Data 6 |
-| 12        | 10        | Data 7 |
-| 13        | 11        | Ack    |
-| 14        | 12        | Busy   |
+| 4         | 1         | Strobe |
+| 5         | 2         | Data 0 |
+| 6         | 3         | Data 1 |
+| 7         | 4         | Data 2 |
+| 8         | 5         | Data 3 |
+| 9         | 6         | Data 4 |
+| 10        | 7         | Data 5 |
+| 11        | 8         | Data 6 |
+| 12        | 9         | Data 7 |
+| 13        | 10        | Ack    |
+| 14        | 11        | Busy   |
 | GND       | GND       | Ground |
 
 ### PS/2 Keyboard
 
 | Arduino   | PS/2  | Name   |
 | ---       | ---   | ---    |
-| 18        | 1     | Data   |
-| 19        | 5     | Clk    |
+| 3         | 1     | Data   |
+| 2         | 5     | Clk    |
 | 5V        | 4     | VCC    |
 | GND       | 3     | Ground |
 
